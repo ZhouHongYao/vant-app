@@ -47,7 +47,7 @@ module.exports = {
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
-    name: 'my-project',
+    name: 'vant-app',
     resolve: {
       alias: {
         '@': resolve('src')
