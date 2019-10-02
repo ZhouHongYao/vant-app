@@ -1,9 +1,9 @@
 #vant-app
 
-简介
+## 简介
 vue-cl3构建，基于vue.js和vant 实现。
 
-前序准备
+## 前序准备
 本项目技术栈基于 ES2015+、vue、vuex、vue-router 、vue-cli 、axios 和 vant。
 
 ## Project setup
