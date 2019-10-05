@@ -1,12 +1,13 @@
 <template>
   <div class="app-wrapper">
     <div class="main-container">
-      <keep-alive>
-        <AppMain />
-      </keep-alive>
-      <keep-alive>
-        <tabbar />
-      </keep-alive>
+      <transition name="fade">
+        <keep-alive>
+          <AppMain />
+        </keep-alive>
+      </transition>
+
+      <tabbar />
     </div>
   </div>
 </template>
@@ -23,8 +24,8 @@ export default {
   },
 
   computed: {},
-  created() {},
-  mounted() {},
+  created() { },
+  mounted() { },
   methods: {}
 }
 </script>

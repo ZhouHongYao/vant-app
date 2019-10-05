@@ -1,4 +1,5 @@
 import router from './router'
+import store from './store'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 
@@ -7,17 +8,19 @@ NProgress.configure({
 }) // NProgress Configuration
 
 router.beforeEach((to, from, next) => {
-  console.log(to, from)
   NProgress.start() // start progress bar
-  /* has token*/
-  if (to.path === '/login') {
-    next({
-      path: '/'
-    })
-    NProgress.done() // if current page is dashboard will not trigger	afterEach hook, so manually handle it
-  } else {
-    next()
+  const nextRoute = [
+    'userCenter'
+  ]
+  if (nextRoute.indexOf(to.name) >= 0) {
+    if (!store.getters.token) { // 未登录
+      next({
+        path: 'login'
+      })
+      NProgress.done()
+    }
   }
+  next()
 })
 
 router.afterEach(() => {

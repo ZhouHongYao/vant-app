@@ -1,6 +1,6 @@
 <template>
   <form action="/">
-    <van-search placeholder="请输入搜索关键词" />
+    <van-search background="#dd2727" placeholder="请输入搜索关键词" />
     <van-swipe :autoplay="3000">
       <van-swipe-item v-for="(image, index) in images" :key="index">
         <lazy-component>

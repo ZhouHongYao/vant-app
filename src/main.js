@@ -5,6 +5,8 @@ import store from './store'
 import './permission' // permission control
 import Vant from 'vant'
 import 'vant/lib/index.css'
+import '@/styles/base.css' // global css
+
 Vue.use(Vant)
 import { Lazyload } from 'vant'
 
