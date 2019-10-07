@@ -29,13 +29,14 @@ export default {
   margin-top: 44px;
   padding: 0 25px;
   .login_type {
-    margin-top: 25px;
+    padding-top: 25px;
     ul li {
       float: left;
       font-size: 16px;
       font-weight: bold;
       margin-right: 25px;
       line-height: 30px;
+      color: #666666;
     }
     .clearfix:after {
       clear: both;
