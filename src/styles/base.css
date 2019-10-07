@@ -746,3 +746,8 @@ a.text-dark:focus {
 	margin-bottom: 32px;
 	width: 100%
 }
+
+.ds-ink{
+    display: inline-block;
+    vertical-align: top;
+}

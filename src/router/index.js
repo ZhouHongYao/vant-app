@@ -24,7 +24,19 @@ export const constantRouterMap = [{
     name: 'assort',
     component: () => import('@/views/assort/index'),
     meta: { title: '分类' }
-  }, newsRouter]
+  }, newsRouter, {
+    path: 'user',
+    name: 'user',
+    component: () => import('@/views/user/index'),
+    meta: { title: '会员中心' }
+  }]
+}, {
+  path: '/login',
+  name: 'login',
+  component: () => import('@/views/login/index'),
+  meta: {
+    title: '登录'
+  }
 }]
 
 export default new Router({
