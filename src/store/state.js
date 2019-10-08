@@ -11,10 +11,10 @@ const pageSizes = [5, 10, 15, 20, 50, 100]
 const pageSize = 10
 
 /**
- * userGroup：用户组数据
- * @type {arr}
+ * token
+ * @type {string}
  */
-const userGroup = []
+const token = ''
 
 /**
  * [user 用户登录信息]
@@ -25,27 +25,11 @@ const user = {
   rules: []
 }
 
-/**
- * [methodData 传值方式]
- * @type {Object}
- * @author zhy
- */
-const methodData = [{
-  title: 'PUT'
-}, {
-  title: 'GET'
-}, {
-  title: 'POST'
-}, {
-  title: 'DELETE'
-}]
-
 const state = {
   pageSizes: pageSizes,
   pageSize: pageSize,
-  user: user,
-  methodData: methodData,
-  userGroup: userGroup
+  token: token,
+  user: user
 }
 
 export default state

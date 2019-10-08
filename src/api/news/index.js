@@ -1,6 +1,6 @@
 /**
- * @author zhy 2019-01-05
- * @description 学生干部履历-相关接口
+ * @author zhy 2019-10-08
+ * @description 资讯-相关接口
  */
 import { read } from '@/api'
 

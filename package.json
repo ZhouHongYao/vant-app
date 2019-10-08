@@ -16,6 +16,7 @@
     "md5": "^2.2.1",
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",
+    "storejs": "^1.0.25",
     "vant": "^2.2.5",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",

@@ -19,10 +19,10 @@ const mutations = {
     state.pageSize = payload
     LS.set(sysKeys + 'pageSize', JSON.stringify(state.pageSize))
   },
-  // 记录最后操作时间
-  setLast_time(state, payload) {
-    state.last_time = payload
-    LS.set(sysKeys + 'last_time', JSON.stringify(state.last_time))
+  // 存储用户token
+  setToken(state, payload) {
+    state.token = payload
+    LS.set(sysKeys + 'token', JSON.stringify(state.token))
   },
   // 存储用户信息
   setUserinfo(state, payload) {

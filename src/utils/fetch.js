@@ -1,7 +1,7 @@
 // 数据资源请求
 import axios from 'axios'
 import store from '@/store/index.js'
-import { Message } from 'element-ui'
+import { Toast } from 'vant'
 import router from '@/router/index.js'
 import qs from 'qs'
 
@@ -51,7 +51,6 @@ axios.interceptors.response.use(response => {
         break
       case 500:
         err.message = '您请求的数据接口出错，请检查接口代码！'
-        // router.push({ path: '/500' })
         break
       case 501:
         err.message = '网络未实现'
@@ -74,19 +73,19 @@ axios.interceptors.response.use(response => {
   } else {
     err.message = '连接到服务器失败'
   }
-  Message.error(err.message)
+  Toast.fail(err.message)
 
   return Promise.reject(err)
 })
 
 // 获取token
-function checktoken() {
-  let token
-  if (store && store.state.user && store.state.user.userinfo && store.state.user.userinfo.token) {
-    token = store.state.user.userinfo.token
-  }
-  return token
-}
+// function checktoken() {
+//   let token
+//   if (store && store.state.user && store.state.user.userinfo && store.state.user.userinfo.token) {
+//     token = store.state.user.userinfo.token
+//   }
+//   return token
+// }
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 axios.defaults.headers.common['cache-control'] = 'no-cache'
@@ -97,14 +96,20 @@ axios.defaults.transformRequest = [data => qs.stringify(data)]
 
 export function fetch(options) {
   return new Promise((resolve, reject) => {
-    axios.defaults.headers.common['Authorization'] = checktoken()
+    // axios.defaults.headers.common['Authorization'] = checktoken()
     axios({
       url: options.url,
       data: options.data || null,
       method: options.method
     }).then((rs) => {
-      renew(rs.headers.authorization)
-      return resolve(rs.data)
+    //   renew(rs.headers.authorization)
+      if (rs.data && rs.data.data) {
+        return resolve(rs.data.data)
+      } else {
+        reject({
+          'err': rs.data ? rs.data : ''
+        })
+      }
     }).catch((err) => {
       reject({
         'err': err
@@ -116,7 +121,7 @@ export function fetch(options) {
 // get
 export function fetch_get(options) {
   return new Promise((resolve, reject) => {
-    axios.defaults.headers.common['Authorization'] = checktoken()
+    // axios.defaults.headers.common['Authorization'] = checktoken()
     // 过滤筛选条件
     for (var val in options.params) {
       if (!options.params[val]) {
@@ -129,8 +134,14 @@ export function fetch_get(options) {
       method: options.method,
       ifModified: true
     }).then((rs) => {
-      renew(rs.headers.authorization)
-      return resolve(rs.data)
+    //   renew(rs.headers.authorization)
+      if (rs.data && rs.data.data) {
+        return resolve(rs.data.data)
+      } else {
+        reject({
+          'err': rs.data ? rs.data : ''
+        })
+      }
     }).catch((err) => {
       reject({
         'err': err
@@ -140,10 +151,10 @@ export function fetch_get(options) {
 }
 
 // 重新设置token
-function renew(authorization) {
-  if (authorization) {
-    const data = store.state.user
-    data.userinfo.token = authorization
-    store.dispatch('setUserinfo', data)
-  }
-}
+// function renew(authorization) {
+//   if (authorization) {
+//     const data = store.state.user
+//     data.userinfo.token = authorization
+//     store.dispatch('setUserinfo', data)
+//   }
+// }

@@ -2,21 +2,38 @@
   <div>
     <van-nav-bar title="标题" :border="false" />
     <a class="head">
-      <van-image round width="62" height="62" src="https://image.hongyantu.com/hongyantu/2017/11/18/056434090715109969071673145.jpg" class="ds-ink" />
+      <van-image round width="62" height="62" :src="avatar?avatar:'https://image.hongyantu.com/hongyantu/2017/11/18/056434090715109969071673145.jpg'" class="ds-ink" />
       <div class="ds-ink lo-re">
-        <span @click="login()">登录</span>
-        <span> / </span>
-        <span>注册</span>
+        <div v-if="token && user">
+          <span>{{ user.uname }}</span>
+
+        </div>
+        <div v-else>
+          <span @click="login()">登录</span>
+          <span> / </span>
+          <span>注册</span>
+        </div>
       </div>
     </a>
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
+
 export default {
   data() {
     return {
-      user: {}
+      avatar: ''
     }
+  },
+  computed: {
+    ...mapState({
+      token: state => state.token,
+      user: state => state.user
+    })
+  },
+  created() {
+    this.avatar = this.user.avatar ? this.user.avatar : ''
   },
   methods: {
     login() {

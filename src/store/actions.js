@@ -3,6 +3,10 @@ const actions = {
   setPageSize({ commit }, data) {
     commit('setPageSize', data)
   },
+  // 存储用户TOKEN
+  setToken({ commit }, data) {
+    commit('setToken', data)
+  },
   // 存储用户信息
   setUserinfo({ commit }, data) {
     commit('setUserinfo', data)

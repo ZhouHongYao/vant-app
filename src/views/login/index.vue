@@ -13,45 +13,116 @@
           <ul>
             <li>
               <label><img src="https://image.hongyantu.com/hongyantu/2018/05/22/058029674515269527458308414.png" alt=""></label>
-              <input id="phone" type="text" placeholder="请输入账号">
+              <input v-model="phone" type="text" placeholder="请输入账号">
             </li>
             <li>
               <label><img src="https://image.hongyantu.com/hongyantu/2018/05/22/058029691015269529108521083.png" alt=""></label>
-              <input id="password" type="password" placeholder="请输入密码">
+              <input v-model="pwd" type="password" placeholder="请输入密码">
             </li>
-            <li class="imgcode" style="display: none;"><label><img src="https://image.hongyantu.com/hongyantu/2018/05/22/058029711915269531193116042.png" alt=""></label> <input id="imgcode" type="text" placeholder="请输入图形验证码">
-              <div class="yzm"><img src="https://passport.hongyantu.com/index.php?r=index/piccodefulsh1&amp;key=0.07614029227223518" alt="" class="img"></div>
-            </li>
-          </ul>
-          <van-button type="danger" class="red-btn">登录</van-button>
-          <div class="else clearfix"><a href="forget_password_01.html" class="mui-pull-left">忘记密码</a> <a href="complain.html" class="mui-pull-right">账号申诉</a></div>
-        </div>
-        <div class="phone_login" style="display: none;">
-          <ul>
-            <li><label><img src="https://image.hongyantu.com/hongyantu/2018/05/22/058031471615269707164266332.png" alt=""></label> <input id="phone1" type="text" placeholder="请输入账号"></li>
-            <li><label><img src="https://image.hongyantu.com/hongyantu/2018/05/22/058029711915269531193116042.png" alt=""></label> <input id="imgcode1" type="text" placeholder="请输入图形验证码">
-              <div class="yzm"><img src="https://passport.hongyantu.com/index.php?r=index/piccodefulsh1&amp;key=0.07614029227223518" alt="" class="img"></div>
-            </li>
-            <li><label><img src="https://image.hongyantu.com/hongyantu/2018/05/22/058031487015269708708314413.png" alt=""></label> <input id="smscode" type="text" placeholder="请输入短信验证码">
-              <div class="yzm"><input type="button" value="发送验证码" class="phone_code"></div>
+            <li class="imgcode">
+              <label><img src="https://image.hongyantu.com/hongyantu/2018/05/22/058029711915269531193116042.png" alt=""></label>
+              <input v-model="imgcode" type="text" placeholder="请输入图形验证码">
+              <div class="yzm">
+                <img class="img" :src="imgcodeurl" alt="" @click="yzmimg(1)">
+              </div>
             </li>
           </ul>
-          <div class="red_button">登录</div>
-          <div class="else clearfix"><a href="complain.html" class="mui-pull-right">账号申诉</a></div>
+          <van-button type="danger" class="red-btn" @click="login">登录</van-button>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { loginBypwd, getUser } from '@/api/login'
+
 export default {
   data() {
     return {
+      type: 1,
+      phone: 'ered123',
+      pwd: '123456',
+      key: '',
+      imgcode: '',
+      imgcodeurl: ''
     }
   },
+  created() {
+    this.key = Math.random()
+    this.imgcodeurl =
+      'http://passporttest.hongyantu.com/index.php?r=index/piccodefulsh1&key=' +
+      this.key
+  },
   methods: {
+    // 返回上一页
     goback() {
-      this.$route.go(-1)
+      this.$router.go(-1)
+    },
+    // 验证图片
+    yzmimg(type) {
+      if (type === 1) {
+        this.key = Math.random()
+        this.imgcodeurl =
+          'http://passporttest.hongyantu.com/index.php?r=index/piccodefulsh1&key=' +
+          this.key
+        this.$forceUpdate()
+      }
+    //    else if (type === 2) {
+    //     this.key1 = Math.random()
+    //     this.imgcodeurl1 =
+    //       'http://passporttest.hongyantu.com/index.php?r=index/piccodefulsh1&key=' +
+    //       this.key1
+    //     this.$forceUpdate()
+    //   }
+    },
+    login() {
+      if (!this.phone) {
+        this.$toast('请输入账号！')
+        return
+      }
+      if (!this.pwd || this.pwd.trim() === '') {
+        this.$toast('请输入密码！')
+        return
+      }
+      var md5 = require('md5')
+      const pwd = md5(this.pwd)
+      loginBypwd({
+        phone: this.phone,
+        pwd: pwd,
+        imgcode: this.imgcode,
+        key: this.key
+      })
+        .then(rs => {
+          if (rs && rs.data && rs.data.token) {
+            this.$store.dispatch('setToken', rs.data.token).then(() => {
+              this.getUserInfo()
+            })
+          } else {
+            const toast = rs && rs.msg ? rs.msg : rs && rs.data && rs.data.msg ? rs.data.msg : '登录失败！'
+            this.$toast(toast)
+          }
+        })
+        .catch(err => {
+          const toast = err.msg ? err.msg : '登录失败！'
+          this.$toast(toast)
+        })
+    },
+    // 用户信息
+    getUserInfo() {
+      getUser({ token: this.$store.state.token }).then(res => {
+        console.log(res)
+        if (res && res.code === 0 && res.data) {
+          this.$store.dispatch('setUserinfo', res.data).then(() => {
+            this.$router.push('user')
+          })
+        } else {
+          this.$mptoast('登录失败！')
+        }
+      })
+        .catch(err => {
+          const toast = err.msg ? err.msg : '登录失败！'
+          this.$toast(toast)
+        })
     }
   }
 }
@@ -112,6 +183,20 @@ export default {
           width: 100%;
           height: 100%;
           display: block;
+        }
+      }
+      .yzm {
+        position: absolute;
+        right: 0;
+        width: 80px;
+        height: 28px;
+        top: 14px;
+        z-index: 10;
+        img {
+          width: 100%;
+          height: 100%;
+          display: block;
+          z-index: 10;
         }
       }
     }

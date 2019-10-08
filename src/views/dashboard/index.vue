@@ -54,12 +54,19 @@ export default {
   width: 100%;
   height: 150px;
 }
-.grid-img{
-    width: 80%;
+.grid-img {
+  width: 70%;
 }
-.grid-text{
-    margin: 8px 0 0 0;
-    color: #666666;
+.grid-text {
+  font-size: 14px;
+  margin: 8px 0 0 0;
+  color: #666666;
+  height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
 }
 </style>
 
