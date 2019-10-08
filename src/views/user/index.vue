@@ -4,9 +4,8 @@
     <a class="head">
       <van-image round width="62" height="62" :src="avatar?avatar:'https://image.hongyantu.com/hongyantu/2017/11/18/056434090715109969071673145.jpg'" class="ds-ink" />
       <div class="ds-ink lo-re">
-        <div v-if="token && user">
+        <div v-if="token && user.uname">
           <span>{{ user.uname }}</span>
-
         </div>
         <div v-else>
           <span @click="login()">登录</span>
