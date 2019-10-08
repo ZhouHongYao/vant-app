@@ -1,16 +1,9 @@
 <template>
-  <div style="background:#f0f2f5;margin-top: -20px;height:100%;">
-    <div class="wscn-http500">
-      <div class="pic-500">
-        <img :src="img_500" class="pic-500__parent" alt="500">
-      </div>
-      <div class="bullshit">
-        <div class="bullshit__oops">Oops!</div>
-        <div class="bullshit__headline">{{ message }}</div>
-        <div class="bullshit__info margin-top-30">服务器出错了，请点击以下按钮返回！</div>
-        <a href="/" class="bullshit__return-home" @click="goback">返回上一页</a>
-      </div>
-    </div>
+  <div class="wscn-http500">
+    <div class="bullshit__oops">Oops!</div>
+    <div class="bullshit__headline">{{ message }}</div>
+    <div class="bullshit__info margin-top-30">服务器出错了，请点击以下按钮返回！</div>
+    <a href="/" class="bullshit__return-home" @click="goback">返回上一页</a>
   </div>
 </template>
 
@@ -43,129 +36,8 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 .wscn-http500 {
-  position: relative;
-  width: 1200px;
-  margin: 20px auto 60px;
-  padding: 0 100px;
-  overflow: hidden;
-  .pic-500 {
-    position: relative;
-    float: left;
-    width: 600px;
-    padding: 190px 0;
-    overflow: hidden;
-    &__parent {
-      width: 100%;
-    }
-    &__child {
-      position: absolute;
-      &.left {
-        width: 80px;
-        top: 17px;
-        left: 220px;
-        opacity: 0;
-        animation-name: cloudLeft;
-        animation-duration: 2s;
-        animation-timing-function: linear;
-        animation-fill-mode: forwards;
-        animation-delay: 1s;
-      }
-      &.mid {
-        width: 46px;
-        top: 10px;
-        left: 420px;
-        opacity: 0;
-        animation-name: cloudMid;
-        animation-duration: 2s;
-        animation-timing-function: linear;
-        animation-fill-mode: forwards;
-        animation-delay: 1.2s;
-      }
-      &.right {
-        width: 62px;
-        top: 100px;
-        left: 500px;
-        opacity: 0;
-        animation-name: cloudRight;
-        animation-duration: 2s;
-        animation-timing-function: linear;
-        animation-fill-mode: forwards;
-        animation-delay: 1s;
-      }
-      @keyframes cloudLeft {
-        0% {
-          top: 17px;
-          left: 220px;
-          opacity: 0;
-        }
-        20% {
-          top: 33px;
-          left: 188px;
-          opacity: 1;
-        }
-        80% {
-          top: 81px;
-          left: 92px;
-          opacity: 1;
-        }
-        100% {
-          top: 97px;
-          left: 60px;
-          opacity: 0;
-        }
-      }
-      @keyframes cloudMid {
-        0% {
-          top: 10px;
-          left: 420px;
-          opacity: 0;
-        }
-        20% {
-          top: 40px;
-          left: 360px;
-          opacity: 1;
-        }
-        70% {
-          top: 130px;
-          left: 180px;
-          opacity: 1;
-        }
-        100% {
-          top: 160px;
-          left: 120px;
-          opacity: 0;
-        }
-      }
-      @keyframes cloudRight {
-        0% {
-          top: 100px;
-          left: 500px;
-          opacity: 0;
-        }
-        20% {
-          top: 120px;
-          left: 460px;
-          opacity: 1;
-        }
-        80% {
-          top: 180px;
-          left: 340px;
-          opacity: 1;
-        }
-        100% {
-          top: 200px;
-          left: 300px;
-          opacity: 0;
-        }
-      }
-    }
-  }
+    transform: translate(10%, 50%);
   .bullshit {
-    position: relative;
-    float: left;
-    width: 320px;
-    padding: 190px 0;
-    overflow: hidden;
     &__oops {
       font-size: 60px;
       font-weight: 700;

@@ -31,12 +31,27 @@ export const constantRouterMap = [{
     meta: { title: '会员中心' }
   }]
 }, {
+  path: '/404',
+  name: '404',
+  component: () => import('@/views/errorPage/404')
+}, {
+  path: '/403',
+  name: '403',
+  component: () => import('@/views/errorPage/403')
+}, {
+  path: '/500',
+  name: '500',
+  component: () => import('@/views/errorPage/500')
+}, {
   path: '/login',
   name: 'login',
   component: () => import('@/views/login/index'),
   meta: {
     title: '登录'
   }
+}, {
+  path: '*', // 匹配所有错误路径
+  redirect: '/404'
 }]
 
 export default new Router({
