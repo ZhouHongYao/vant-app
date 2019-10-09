@@ -5,6 +5,6 @@
 import { read } from '@/api'
 
 export function newsList(params) { // 列表
-  return read('/b2bapi', params)
+  return read('/b2bapi?action=TuLiaoShe.GetNewsForzixun', params)
 }
 

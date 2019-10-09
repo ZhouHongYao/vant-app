@@ -41,6 +41,10 @@ module.exports = {
         // pathRewrite: { // commonapi 重写为 commonapi
         //   '^/commonapi': 'commonapi'
         // }
+      },
+      'b2bapi': {
+        target: `http://apib2btest.hongyantu.com`,
+        changeOrigin: true
       }
     }
   },

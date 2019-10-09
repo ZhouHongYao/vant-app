@@ -3,10 +3,10 @@ import axios from 'axios'
 import store from '@/store/index.js'
 import { Toast } from 'vant'
 import router from '@/router/index.js'
-import qs from 'qs'
+import qs from 'qs' // qs模块是防止跨域时，post请求转变成options请求
 
 // 设置默认请求头
-// axios.defaults.baseURL = ''
+axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? '' : 'http://apicommontest.hongyantu.com'
 
 // 请求拦截器
 axios.interceptors.request.use(config => {
