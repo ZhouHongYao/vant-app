@@ -43,7 +43,7 @@ module.exports = {
         // }
       },
       'b2bapi': {
-        target: `http://apib2btest.hongyantu.com`,
+        target: `http://apib2btest.xxx.com`,
         changeOrigin: true
       }
     }
